@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>App Verification</title>
+    <title>Coffee Demo Auth</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        .btn { background: #333; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 20px;}
+        body { font-family: sans-serif; text-align: center; padding: 40px; }
+        .btn {
+            background-color: #3ecf8e; color: white; padding: 15px 30px;
+            text-decoration: none; border-radius: 5px; font-weight: bold;
+            display: inline-block; margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Email Verified!</h1>
-    <p>Your account has been successfully verified.</p>
-    <p>You can now return to the app to log in.</p>
-    </body>
+    <h3>Verifying Login...</h3>
+    <p>If the app does not open automatically, click the button below.</p>
+    
+    <a id="launch-btn" href="#" class="btn">Open App</a>
+
+    <script>
+        // 1. Get the current URL parameters (e.g., #access_token=...)
+        const hash = window.location.hash;
+        const search = window.location.search;
+        
+        // 2. Build the Custom Scheme URL
+        // Matches the Manifest: coffeedemo://auth/callback
+        const customSchemeUrl = "coffeedemo://auth/callback" + search + hash;
+
+        // 3. Update the button href
+        document.getElementById('launch-btn').href = customSchemeUrl;
+
+        // 4. Optional: Try to auto-click it after 1 second
+        setTimeout(function() {
+            window.location.href = customSchemeUrl;
+        }, 1000);
+    </script>
+</body>
 </html>
